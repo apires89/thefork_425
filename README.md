@@ -86,12 +86,64 @@ routes: get "restaurants/:id", to: "restaurants#show", as: "restaurant"
 
   3rd redirect to show page
 
+EDIT AND UPDATE
+
+ 2 steps
+
+  1 get the form
+
+  2 update the restaurant
+
+ routes :
+  get "restaurants/:id/edit", to: "restaurants#edit"
+
+  patch "restaurants/:id", to: "restaruants#update"
+
+  controller:
+  get the same form from the new and use it on the edit page
+
+  update: find the restaurant, update with params
+  redirect to show page
+
+  use a method called set_restaurant to be called in the before_action
+
+    before_action :set_restaurant, only:[:show,:edit,:update]
+
+    def set_restaurant
+    @restaurant = Restaurant.find(params[:id])
+    end
 
 
+  PARTIAL
+
+  _form.html.erb to store the form
+
+  use <%= render 'form' %> on new and edit
+
+ DELETE:
+
+  routes: delete "restaurants/:id", to: "restaurants#destroy"
+
+  VERB DELETE
+  ACTION DESTROY
+
+  controller: find the restaurant
+  @restaurant.destroy
+  redirect_to indexpage
+
+  IMPORTANT:
+  only works with a link_to
+  <%= link_to "delete", restaurant_path(@restaurant), method: :delete,
+            data: { confirm: "Are you sure?" } %>
 
 
+ EXTRA:
 
+  resources :restaurants ## ALL OF THE ROUTES
 
+    #resources :restaurants, only: [:show,:new,:create]
+
+  resources :restaurants, except: [:destroy]
 
 
 

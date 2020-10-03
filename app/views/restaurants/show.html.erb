@@ -3,4 +3,11 @@
 
 <p><%= @restaurant.address %></p>
 
-<p>Rating: <% @restaurant.rating.times do %>*<% end %></p>
+<p>Rating: <% @restaurant.rating.times do %><i class="fas fa-star"></i><% end %></p>
+
+<%= link_to "Edit this Restaurant", edit_restaurant_path(@restaurant) %>
+
+<%= link_to restaurant_path(@restaurant), method: :delete,
+            data: { confirm: "Are you sure?" } do %>
+<i class="fas fa-trash"></i>
+<% end %>
